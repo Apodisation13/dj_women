@@ -1,0 +1,13 @@
+{% extends "women/base.html" %}
+
+{% block title %}Категории{% endblock %}
+
+{% block body %}
+    <span style="color: green; ">Категория {{ category_id }}</span>
+    <ul>
+        {% for each in menu %}
+        <li>{{ each }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

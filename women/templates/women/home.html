@@ -1,0 +1,20 @@
+{% extends "women/base.html" %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block body %}
+    <h1>
+        <span style="color: red; ">
+        СТАТЬИ:
+    </span>
+    </h1>
+    <ul>
+    {% for woman in women %}
+        <li>
+        <h2>{{ woman.title }}</h2>
+        <p>{{ woman.content }}</p>
+        <br>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
