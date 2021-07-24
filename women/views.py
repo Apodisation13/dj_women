@@ -6,10 +6,18 @@ from women.models import *
 MENU = ['О сайте', 'Добавить статью', 'Обратная связь', 'Войти']
 
 
+def about(request):
+    template_name = 'women/about.html'
+    return render(request, template_name)
+
+
 def home(request):
-    template_name = 'women/home.html'
+    template_name = 'women/index.html'
     women = Women.objects.all()
-    context = {'women': women}
+    context = {
+        'posts': women,
+        'menu': MENU
+    }
     return render(request, template_name, context)
 
 
