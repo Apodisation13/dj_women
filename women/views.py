@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render
 from women.models import *
 
@@ -17,12 +17,18 @@ def about(request):
 
 def home(request):
     template_name = 'women/index.html'
+
     women = Women.objects.all()
+    categories = Category.objects.all()
+
     context = {
         'posts': women,
         'menu': MENU,
-        'title': 'Главная страница'
+        'title': 'Главная страница',
+        'categories': categories,
+        'category_selected': 0
     }
+
     return render(request, template_name, context)
 
 
@@ -40,6 +46,26 @@ def login(request):
 
 def show_post(request, post_id):
     return HttpResponse(f'Отображение статьи с id {post_id}')
+
+
+def show_category(request, category_id):
+    template_name = 'women/index.html'
+
+    women = Women.objects.filter(category_id=category_id)
+    categories = Category.objects.all()
+
+    if not women:
+        raise Http404()
+
+    context = {
+        'posts': women,
+        'menu': MENU,
+        'title': 'Отображение по рубрикам',
+        'categories': categories,
+        'category_selected': category_id
+    }
+
+    return render(request, template_name, context)
 
 
 def page_not_found(request, exception):
