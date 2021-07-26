@@ -3,13 +3,6 @@ from django.shortcuts import render
 from women.models import *
 
 
-MENU = [{'title': 'О сайте', 'url_name': 'about'},
-        {'title': 'Добавить статью', 'url_name': 'add_page'},
-        {'title': 'Обратная связь', 'url_name': 'contact'},
-        {'title': 'Войти    ', 'url_name': 'login'}
-        ]
-
-
 def about(request):
     template_name = 'women/about.html'
     return render(request, template_name)
@@ -22,7 +15,6 @@ def home(request):
 
     context = {
         'posts': women,
-        'menu': MENU,
         'title': 'Главная страница',
         'category_selected': 0
     }
@@ -56,7 +48,6 @@ def show_category(request, category_id):
 
     context = {
         'posts': women,
-        'menu': MENU,
         'title': 'Отображение по рубрикам',
         'category_selected': category_id
     }
