@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'women.apps.WomenConfig'  # TODO: необходимо будет для чего-то потом
+    'women.apps.WomenConfig'  # НЕОБХОДИМО для админки, чтобы брать оттуда Мета
 ]
 
 MIDDLEWARE = [
