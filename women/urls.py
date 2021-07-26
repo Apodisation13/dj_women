@@ -4,6 +4,10 @@ from women.views import *
 
 urlpatterns = [
     path('', home, name='home'),
-    path('categories/<int:category_id>/', categories, name='categories'),
+    # path('categories/<int:category_id>/', categories, name='categories'),
     path('about/', about, name='about'),
+    path('addpage/', add_page, name='add_page'),
+    path('contact/', contact, name='contact'),
+    path('login/', login, name='login'),
+    path('post/<int:post_id>/', show_post, name='post'),
 ]
