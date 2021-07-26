@@ -19,13 +19,11 @@ def home(request):
     template_name = 'women/index.html'
 
     women = Women.objects.all()
-    categories = Category.objects.all()
 
     context = {
         'posts': women,
         'menu': MENU,
         'title': 'Главная страница',
-        'categories': categories,
         'category_selected': 0
     }
 
@@ -52,7 +50,6 @@ def show_category(request, category_id):
     template_name = 'women/index.html'
 
     women = Women.objects.filter(category_id=category_id)
-    categories = Category.objects.all()
 
     if not women:
         raise Http404()
@@ -61,7 +58,6 @@ def show_category(request, category_id):
         'posts': women,
         'menu': MENU,
         'title': 'Отображение по рубрикам',
-        'categories': categories,
         'category_selected': category_id
     }
 
