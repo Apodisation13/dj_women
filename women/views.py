@@ -1,5 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, get_object_or_404
+
+from women.forms import AddPostForm
 from women.models import *
 
 
@@ -24,7 +26,16 @@ def home(request):
 
 
 def add_page(request):
-    return HttpResponse('Добавить страницу')
+    template_name = 'women/addpage.html'
+
+    # проверка - если форма уже отправлена с ошибкой, чтобы данные остались
+    if request.method == 'POST':
+        form = AddPostForm(request.POST)
+    else:
+        form = AddPostForm()
+
+    context = {'title': 'Добавление статьи', 'form': form}
+    return render(request, template_name, context)
 
 
 def contact(request):
