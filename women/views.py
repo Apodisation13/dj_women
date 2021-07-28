@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from women.models import *
 
 
@@ -11,7 +11,8 @@ def about(request):
 def home(request):
     template_name = 'women/index.html'
 
-    women = Women.objects.all()
+    women = Women.objects.all().select_related('category')
+    # ВОТ ЭТО ДОБАВЛЕНИЕ SELECT_RELATED ПОЗВОЛИЛО ВМЕСТО КУЧИ ЗАПРОСОВ СДЕЛАТЬ ВСЕГО 2
 
     context = {
         'posts': women,
@@ -34,14 +35,25 @@ def login(request):
     return HttpResponse('Войти')
 
 
-def show_post(request, post_id):
-    return HttpResponse(f'Отображение статьи с id {post_id}')
+def show_post(request, post_slug):
+
+    template_name = 'women/post.html'
+
+    post = get_object_or_404(Women, slug=post_slug)
+
+    context = {
+        'post': post,
+        'title': post.title,
+        'category_selected': post.category_id
+    }
+
+    return render(request, template_name, context)
 
 
 def show_category(request, category_id):
     template_name = 'women/index.html'
 
-    women = Women.objects.filter(category_id=category_id)
+    women = Women.objects.filter(category_id=category_id).select_related('category')
 
     if not women:
         raise Http404()
