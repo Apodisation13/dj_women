@@ -30,7 +30,7 @@ def add_page(request):
 
     # проверка - если форма уже отправлена с ошибкой, чтобы данные остались
     if request.method == 'POST':
-        form = AddPostForm(request.POST)
+        form = AddPostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('home')

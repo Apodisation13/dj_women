@@ -1,4 +1,6 @@
 from django import forms
+from django.core.exceptions import ValidationError
+
 from .models import *
 
 
@@ -11,11 +13,18 @@ class AddPostForm(forms.ModelForm):
 
     class Meta:
         model = Women
-        fields = ['title', 'slug', 'content', 'is_published', 'category']
+        fields = ['title', 'slug', 'content', 'photo', 'is_published', 'category']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-input'}),
             'content': forms.Textarea(attrs={'cols': 60, 'rows': 10})
         }
+
+    def clean_title(self):
+        """метод проверки поля, обяязательно должен начинаться с clean_поле"""
+        title = self.cleaned_data['title']
+        if len(title) > 50:
+            raise ValidationError('Длина заголовка не должна превышать 50 символов')
+        return title
 
 
 # class AddPostForm(forms.Form):
