@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from women.forms import AddPostForm
 from women.models import *
@@ -31,6 +31,9 @@ def add_page(request):
     # проверка - если форма уже отправлена с ошибкой, чтобы данные остались
     if request.method == 'POST':
         form = AddPostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
     else:
         form = AddPostForm()
 
