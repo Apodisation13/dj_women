@@ -50,10 +50,12 @@ def show_post(request, post_slug):
     return render(request, template_name, context)
 
 
-def show_category(request, category_id):
+def show_category(request, category_slug):
     template_name = 'women/index.html'
 
-    women = Women.objects.filter(category_id=category_id).select_related('category')
+    # category_id = Category.objects.filter(slug=category_slug)
+
+    women = Women.objects.filter(category__slug=category_slug).select_related('category')
 
     if not women:
         raise Http404()
@@ -61,7 +63,7 @@ def show_category(request, category_id):
     context = {
         'posts': women,
         'title': 'Отображение по рубрикам',
-        'category_selected': category_id
+        'category_selected': category_slug
     }
 
     return render(request, template_name, context)

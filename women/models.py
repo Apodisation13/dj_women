@@ -43,7 +43,7 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         """функция для отобржажения кнопку на запись в админке и доставания pk по ключу для шаблонов"""
-        return reverse('category', kwargs={'category_id': self.pk})
+        return reverse('category', kwargs={'category_slug': self.slug})
 
     class Meta:
         """для отображения в админке"""
