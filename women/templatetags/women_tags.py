@@ -5,7 +5,7 @@ from women.models import *
 MENU = [{'title': 'О сайте', 'url_name': 'about'},
         {'title': 'Добавить статью', 'url_name': 'add_page'},
         {'title': 'Обратная связь', 'url_name': 'contact'},
-        {'title': 'Войти', 'url_name': 'login'}
+        # {'title': 'Войти', 'url_name': 'login'}
         ]
 
 register = template.Library()
@@ -24,6 +24,14 @@ def show_categories(category_selected):
     return {'categories': categories, "category_selected": category_selected}
 
 
-@register.inclusion_tag('women/show_menu.html')
-def show_menu():
-    return {'menu': MENU}
+@register.inclusion_tag('women/show_menu.html', takes_context=True)
+def show_menu(context):
+    """вот такое для проверки, аутентикейтед юзер или нет"""
+    m = MENU.copy()
+    if not context.request.user.is_authenticated:
+        m.pop(1)
+
+    context['menu'] = m
+
+    # return {'menu': MENU}
+    return context

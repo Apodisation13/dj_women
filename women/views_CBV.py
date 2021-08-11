@@ -1,5 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DeleteView, CreateView
 
 from .forms import *
@@ -77,4 +79,26 @@ class AddPage(BaseMixin, LoginRequiredMixin, CreateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Добавить статью')
+        return context | c_def
+
+
+class RegisterUser(BaseMixin, CreateView):
+    form_class = RegisterUserForm
+    template_name = 'women/register.html'
+    success_url = reverse_lazy('login')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Регистрация')
+        return context | c_def
+
+
+class LoginUser(BaseMixin, LoginView):
+
+    form_class = LoginUserForm
+    template_name = 'women/login.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Аутентификация')
         return context | c_def
