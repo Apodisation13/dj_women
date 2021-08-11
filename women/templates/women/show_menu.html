@@ -4,6 +4,12 @@
 
 {% endfor %}
 
-<li class="last">
+{% if user.is_authenticated %}
+    <li class="last">
+    <a href="{% url 'register' %}">{{ user.username }}</a> | <a href="{% url 'logout' %}">ВЫХОД</a>
+</li>
+{% else %}
+    <li class="last">
     <a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a>
 </li>
+{% endif %}

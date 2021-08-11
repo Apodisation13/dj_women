@@ -51,6 +51,7 @@ class RegisterUserForm(UserCreationForm):
     password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
     class Meta:
+        """вот тут не будут работать стили без этого? и сортировка полей как-то рандмом отобразится"""
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 

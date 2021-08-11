@@ -1,6 +1,8 @@
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DeleteView, CreateView
 
@@ -92,6 +94,12 @@ class RegisterUser(BaseMixin, CreateView):
         c_def = self.get_user_context(title='Регистрация')
         return context | c_def
 
+    def form_valid(self, form):
+        """если авторизация прошла успешно, по сути ещё и залогинить юзера, +редирект домой"""
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
+
 
 class LoginUser(BaseMixin, LoginView):
 
@@ -102,3 +110,14 @@ class LoginUser(BaseMixin, LoginView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Аутентификация')
         return context | c_def
+
+    def get_success_url(self):
+        """вот здесь почему-то нужно так, через метод именно, а не success_url как выше"""
+        # или так, или в settings написать LOGIN_REDIRECT_URL = '/'
+        return reverse_lazy('home')
+        # для возрата на то место, где был до этого!
+        # url = self.get_redirect_url()
+        # if url:
+        #     return url
+        # else:
+        #     return reverse_lazy('home')

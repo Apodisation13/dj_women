@@ -28,8 +28,14 @@ def show_categories(category_selected):
 def show_menu(context):
     """вот такое для проверки, аутентикейтед юзер или нет"""
     m = MENU.copy()
-    if not context.request.user.is_authenticated:
+    print(context['request'].user)
+
+    if not context['request'].user.is_authenticated:
         m.pop(1)
+        print('НЕ АВТОРИЗОВАН')
+    else:
+        print('АВТОРИЗОВАН')
+    print(m)
 
     context['menu'] = m
 

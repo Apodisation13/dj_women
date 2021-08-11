@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseNotFound, Http404
@@ -109,3 +110,7 @@ def page_not_found(request, exception):
 #         'menu': MENU
 #     }
 #     return render(request, template_name, context)
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
