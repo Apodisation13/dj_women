@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -25,6 +26,7 @@ def home(request):
     return render(request, template_name, context)
 
 
+@login_required  # для функции нужен декоратор
 def add_page(request):
     template_name = 'women/addpage.html'
 

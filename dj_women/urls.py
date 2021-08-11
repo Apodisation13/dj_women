@@ -10,6 +10,7 @@ from women.views import page_not_found
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('women.urls'))
+    # у include есть ещё параметр namespace= для reverse из другого app: reverse(namespace:name)
 ]
 
 # ДЛЯ добавки МЕДИА файлов
