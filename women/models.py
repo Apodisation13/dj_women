@@ -31,7 +31,7 @@ class Women(models.Model):
         """для отображения в админке"""
         verbose_name = 'Известные женщины'
         verbose_name_plural = 'Женщины'
-        ordering = ['-time_update']  # эта сортировка влияет везде
+        ordering = ['-time_update']  # эта сортировка влияет везде, если ее убрать,то в пагинации будет предупреждение
 
 
 class Category(models.Model):

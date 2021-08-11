@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -8,7 +9,14 @@ from women.models import *
 
 def about(request):
     template_name = 'women/about.html'
-    return render(request, template_name)
+    # для функции пагинатор выглядел бы так:
+    # чтобы перейти на вторую страницу надо напечатать
+    contact_list = Women.objects.all().select_related('category')
+    paginator = Paginator(contact_list, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page_obj': page_obj, 'title': 'О сайте'}
+    return render(request, template_name, context)
 
 
 def home(request):

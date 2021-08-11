@@ -3,6 +3,7 @@ from women.models import Category
 
 class BaseMixin:
     """общий класс для представлений"""
+    paginate_by = 3  # вот так легко сделать пагинацию здесь!
 
     def get_user_context(self, **kwargs):
         context = kwargs

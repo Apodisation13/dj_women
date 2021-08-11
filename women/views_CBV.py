@@ -8,6 +8,7 @@ from .utils import *
 
 
 class WomenHome(BaseMixin, ListView):
+
     model = Women
     template_name = 'women/index.html'
     context_object_name = 'posts'
