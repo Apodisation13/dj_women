@@ -54,7 +54,7 @@ ROOT_URLCONF = 'dj_women.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # указать путь к шаблонам, искать их в корне
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
