@@ -28,7 +28,9 @@
 <table class="table-content" border=0 cellpadding="0" cellspacing="0">
 <tr>
 <!-- Sidebar слева -->
+{#{% load cache %}#}
 	<td valign="top" class="left-chapters">
+{#     {% cache 60 sidebar %}#}
     {% get_categories as categories %}
 	<ul id="leftchapters">
 
@@ -39,10 +41,10 @@
 {#        {%  endif %}#}
 
     {% show_categories category_selected=category_selected %}
-
+{#{% endcache %}#}
         <li class="share">
 		<p>Наш канал</p>
-		<a class="share-yt" href="https://www.youtube.com/channel/UClJzWfGWuGJL2t-3dYKcHTA/playlists" target="_blank" rel="nofollow"></a>
+		<a class="share-yt" href="https://www.youtube.com/" target="_blank" rel="nofollow"></a>
 		</li>
 	</ul>
 </td>

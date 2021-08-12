@@ -16,7 +16,7 @@ class WomenHome(BaseMixin, ListView):
     model = Women
     template_name = 'women/index.html'
     context_object_name = 'posts'
-    queryset = Women.objects.filter(is_published=True)
+    queryset = Women.objects.filter(is_published=True).select_related('category')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

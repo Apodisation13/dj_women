@@ -6,7 +6,7 @@
 
 {% if user.is_authenticated %}
     <li class="last">
-    <a href="{% url 'register' %}">{{ user.username }}</a> | <a href="{% url 'logout' %}">ВЫХОД</a>
+    <a>{{ user.username }}</a> | <a href="{% url 'logout' %}">ВЫХОД</a>
 </li>
 {% else %}
     <li class="last">
